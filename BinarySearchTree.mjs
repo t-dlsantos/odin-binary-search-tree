@@ -32,6 +32,24 @@ class Tree {
 
     return current;
   }
+
+  deleteItem(value, current = this.root) {
+    if (current.data === value) {
+      if (current.left && current.right)
+        console.log('something');
+      else if (current.left || current.right)
+        console.log('other thing');
+      else 
+        return null;
+    }
+
+    if (value < current.data)
+      current.left = this.deleteItem(value, current.left);
+    else
+      current.right = this.deleteItem(value, current.right)
+
+    return current;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -52,5 +70,5 @@ const newTree = new Tree(array);
 
 
 prettyPrint(newTree.root)
-newTree.insert(2)
+newTree.deleteItem(1)
 prettyPrint(newTree.root)
