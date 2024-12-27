@@ -35,17 +35,26 @@ class Tree {
 
   deleteItem(value, current = this.root) {
     if (current.data === value) {
-      if (current.left && current.right)
-        console.log('something');
+      if (current.left && current.right) {
+        let temp = current;
+        temp = temp.right;
+        while(temp.left !== null) {
+          temp = temp.left;
+        }
+        this.deleteItem(temp.data);
+        current.data = temp.data;
+        return current;
+      }
+        
       else if (current.left || current.right)
-        console.log('other thing');
+        return current.left ?? current.right;
       else 
         return null;
     }
 
     if (value < current.data)
       current.left = this.deleteItem(value, current.left);
-    else
+    else if (value > current.data)
       current.right = this.deleteItem(value, current.right)
 
     return current;
@@ -65,10 +74,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+const array = [20, 30, 32, 34, 36, 40, 50, 60, 65, 70, 75, 80, 85];
 const newTree = new Tree(array);
 
-
-prettyPrint(newTree.root)
-newTree.deleteItem(1)
-prettyPrint(newTree.root)
+prettyPrint(newTree.root);
+newTree.deleteItem(50);
+prettyPrint(newTree.root);
