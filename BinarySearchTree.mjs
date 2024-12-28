@@ -59,6 +59,23 @@ class Tree {
 
     return current;
   }
+
+  find(value) {
+    let current = this.root;
+    
+
+    while (current !== null) {
+      if (current.data === value) 
+        return current;
+
+      if (value < current.data)
+        current = current.left;
+      else if (value > current.data)
+        current = current.right;
+    }
+    
+    return "node doesn't exist";
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -77,6 +94,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const array = [20, 30, 32, 34, 36, 40, 50, 60, 65, 70, 75, 80, 85];
 const newTree = new Tree(array);
 
-prettyPrint(newTree.root);
-newTree.deleteItem(50);
 prettyPrint(newTree.root);
