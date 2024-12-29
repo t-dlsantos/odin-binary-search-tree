@@ -76,6 +76,30 @@ class Tree {
     
     return "node doesn't exist";
   }
+
+  levelOrder(callback) {
+    if (callback === undefined)
+      throw new Error("Callback is required");
+    
+    let queue = [];
+    let current = null;
+    
+    queue.push(this.root);
+
+    while (queue.length !== 0) {
+      current = queue[0];
+
+      console.log(current.data);
+
+      if (current.left !== null)
+        queue.push(current.left);
+
+      if (current.right !== null)
+        queue.push(current.right)
+
+      callback(queue.shift());
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -94,4 +118,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const array = [20, 30, 32, 34, 36, 40, 50, 60, 65, 70, 75, 80, 85];
 const newTree = new Tree(array);
 
-prettyPrint(newTree.root);
+newTree.levelOrder( (node) => console.log(node.data) );
