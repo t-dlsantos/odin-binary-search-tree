@@ -100,6 +100,17 @@ class Tree {
       callback(queue.shift());
     }
   }
+
+  inOrder(current = this.root, callback) {
+    if (callback === undefined)
+      throw new Error("Callback is required");
+
+    if (current.left !== null)
+      this.inOrder(current.left, callback);
+    callback(current);
+    if (current.right !== null)
+      this.inOrder(current.right, callback);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -118,4 +129,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const array = [20, 30, 32, 34, 36, 40, 50, 60, 65, 70, 75, 80, 85];
 const newTree = new Tree(array);
 
-newTree.levelOrder( (node) => console.log(node.data) );
+
+prettyPrint(newTree.root)
+newTree.inOrder(undefined, (node) => console.log(node.data) );
