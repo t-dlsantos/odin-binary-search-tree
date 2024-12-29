@@ -122,6 +122,17 @@ class Tree {
       this.postOrder(current.right, callback);
     callback(current);
   }
+
+  preOrder(current = this.root, callback) {
+    if (callback === undefined)
+      throw new Error("Callback is required");
+
+    callback(current);
+    if (current.left !== null)
+      this.preOrder(current.left, callback);
+    if (current.right !== null)
+      this.preOrder(current.right, callback);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -142,4 +153,4 @@ const newTree = new Tree(array);
 
 
 prettyPrint(newTree.root)
-newTree.postOrder(undefined, (node) => console.log(node.data) );
+newTree.preOrder(undefined, (node) => console.log(node.data) );
