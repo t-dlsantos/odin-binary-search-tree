@@ -133,6 +133,17 @@ class Tree {
     if (current.right !== null)
       this.preOrder(current.right, callback);
   }
+
+  height(node) {
+    if (node == null)
+      return -1;
+
+    let leftHeight = this.height(node.left);
+    let rightHeight = this.height(node.right);
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -153,4 +164,4 @@ const newTree = new Tree(array);
 
 
 prettyPrint(newTree.root)
-newTree.preOrder(undefined, (node) => console.log(node.data) );
+console.log(newTree.height(newTree.root))
