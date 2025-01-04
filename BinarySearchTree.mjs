@@ -89,8 +89,6 @@ class Tree {
     while (queue.length !== 0) {
       current = queue[0];
 
-      console.log(current.data);
-
       if (current.left !== null)
         queue.push(current.left);
 
@@ -101,37 +99,37 @@ class Tree {
     }
   }
 
-  inOrder(current = this.root, callback) {
+  inOrder(callback, current = this.root) {
     if (callback === undefined)
       throw new Error("Callback is required");
 
     if (current.left !== null)
-      this.inOrder(current.left, callback);
+      this.inOrder(callback, current.left);
     callback(current);
     if (current.right !== null)
-      this.inOrder(current.right, callback);
+      this.inOrder(callback, current.right);
   }
 
-  postOrder(current = this.root, callback) {
+  postOrder(callback, current = this.root) {
     if (callback === undefined)
       throw new Error("Callback is required");
 
     if (current.left !== null)
-      this.postOrder(current.left, callback);
+      this.postOrder(callback, current.left);
     if (current.right !== null)
-      this.postOrder(current.right, callback);
+      this.postOrder(callback, current.right);
     callback(current);
   }
 
-  preOrder(current = this.root, callback) {
+  preOrder(callback, current = this.root) {
     if (callback === undefined)
       throw new Error("Callback is required");
 
     callback(current);
     if (current.left !== null)
-      this.preOrder(current.left, callback);
+      this.preOrder(callback, current.left);
     if (current.right !== null)
-      this.preOrder(current.right, callback);
+      this.preOrder(callback, current.right);
   }
 
   height(node) {
@@ -157,6 +155,16 @@ class Tree {
   isBalanced() {
     return (Math.abs(this.height(this.root.left) - this.height(this.root.right)) <= 1);
   }
+
+  rebalance() {
+    let array = [];
+
+    this.inOrder((node) => array.push(node.data))
+
+    this.root = buildTree(array);
+
+    return 'The tree is now balanced';
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -176,5 +184,12 @@ const array = [20, 30, 32, 34, 36, 40, 50, 60, 65, 70, 75, 80, 85];
 const newTree = new Tree(array);
 
 
-prettyPrint(newTree.root)
+newTree.insert(90);
+newTree.insert(100);
+newTree.insert(110);
+prettyPrint(newTree.root);
+console.log(newTree.isBalanced())
+
+newTree.rebalance();
+prettyPrint(newTree.root);
 console.log(newTree.isBalanced())
