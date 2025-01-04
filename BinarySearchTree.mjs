@@ -144,6 +144,15 @@ class Tree {
     return Math.max(leftHeight, rightHeight) + 1;
   }
 
+  depth(node, current = this.root, count = 0) {
+    if (current.data === node.data)
+      return count;
+
+    if (current.data > node.data)
+      return this.depth(node, current.left, count + 1);
+    else if (current.data < node.data)
+      return this.depth(node, current.right, count + 1);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -164,4 +173,4 @@ const newTree = new Tree(array);
 
 
 prettyPrint(newTree.root)
-console.log(newTree.height(newTree.root))
+console.log(newTree.depth(newTree.find(20)))
