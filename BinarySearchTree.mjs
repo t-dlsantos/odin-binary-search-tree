@@ -153,6 +153,10 @@ class Tree {
     else if (current.data < node.data)
       return this.depth(node, current.right, count + 1);
   }
+
+  isBalanced() {
+    return (Math.abs(this.height(this.root.left) - this.height(this.root.right)) <= 1);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -173,4 +177,4 @@ const newTree = new Tree(array);
 
 
 prettyPrint(newTree.root)
-console.log(newTree.depth(newTree.find(20)))
+console.log(newTree.isBalanced())
